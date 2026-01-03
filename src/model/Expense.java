@@ -12,5 +12,18 @@ public class Expense {
         this.amount = amount;
         this.date = date;
     }
+    public String getCategory() {
+        return category;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public LocalDate getDate() {
+        return date;
+    }
 
+    @Override
+    public String toString() {
+        return date + " | " + category + " | $" + amount;
+    }
 }

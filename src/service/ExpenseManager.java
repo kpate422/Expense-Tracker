@@ -16,4 +16,9 @@ public class ExpenseManager {
         expenses.add(e);
     }
 
+    public double getTotalExpense() {
+        return expenses.stream().mapToDouble(Expense::getAmount).sum();
+    }
+
+
 }
