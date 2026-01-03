@@ -39,4 +39,16 @@ public class ExpenseManager {
                 .forEach(System.out::println);
     }
 
+    public String getHighestCategory() {
+        return getExpenseByCategory().entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).orElse("None");
+    }
+
+    public String getLowestCategory() {
+        return getExpenseByCategory().entrySet().stream()
+                .min(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).orElse("None");
+    }
+
 }

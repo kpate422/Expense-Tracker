@@ -12,6 +12,7 @@ public class Expense {
         this.amount = amount;
         this.date = date;
     }
+
     public String getCategory() {
         return category;
     }
