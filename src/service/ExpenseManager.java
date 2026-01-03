@@ -28,4 +28,15 @@ public class ExpenseManager {
                 ));
     }
 
+    public void showExpenseTrend() {
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses to show.");
+            return;
+        }
+
+        expenses.stream()
+                .sorted(Comparator.comparing(Expense::getDate))
+                .forEach(System.out::println);
+    }
+
 }
