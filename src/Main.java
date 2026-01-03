@@ -15,7 +15,7 @@ public class Main {
         manager.addExpense(new Expense("Entertainment", 20.0, LocalDate.of(2026,1,3)));
 
         while (true) {
-            System.out.println("\n1. Add Expense\n2. Show Total");
+            System.out.println("\n1. Add Expense\n2. Show Total\n3. Show By Category");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -30,10 +30,13 @@ public class Main {
                     System.out.print("Enter date (YYYY-MM-DD): ");
                     LocalDate date = LocalDate.parse(scanner.nextLine());
                     manager.addExpense(new Expense(category, amount, date));
-                    System.out.print("Expense successfully added!");
+                    System.out.println("Expense successfully added!");
                     break;
                 case 2:
                     System.out.println("Total Expense: $" + manager.getTotalExpense());
+                    break;
+                case 3:
+                    System.out.println("Expenses by Category: " + manager.getExpenseByCategory());
                     break;
                 default:
                     System.out.println("Invalid choice");

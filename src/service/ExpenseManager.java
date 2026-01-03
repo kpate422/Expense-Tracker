@@ -20,5 +20,12 @@ public class ExpenseManager {
         return expenses.stream().mapToDouble(Expense::getAmount).sum();
     }
 
+    public Map<String, Double> getExpenseByCategory() {
+        return expenses.stream()
+                .collect(Collectors.groupingBy(
+                        Expense::getCategory,
+                        Collectors.summingDouble(Expense::getAmount)
+                ));
+    }
 
 }
