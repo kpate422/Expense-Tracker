@@ -17,19 +17,22 @@ public class Main {
         while (true) {
             System.out.println("\n1. Add Expense\n2. Show Total\n3. Show By Category\n4. Show Expense Trend (by date)\n5. Show Highest/Lowest\n6. Exit");
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            String input = scanner.nextLine().trim();
+            int choice = 0;
+
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid choice. Please enter a number.");
+                continue; // go back to menu
+            }
+
 
             switch (choice) {
                 case 1:
                     System.out.print("Enter category: ");
-//                    String category = scanner.nextLine();
-//                    String category = scanner.nextLine().trim().toLowerCase();
                     String category = scanner.nextLine().trim();
-//                    if(category.isEmpty()) {
-//                        System.out.println("Category cannot be empty.");
-//                        break;
-//                    }
+
                     if(category.isEmpty() || category.matches("\\d+")) {
                         System.out.println("Category must contain letters and cannot be just numbers.");
                         break;
@@ -48,10 +51,7 @@ public class Main {
                         System.out.println("Amount must be greater than 0.");
                         break;
                     }
-//                    double amount = scanner.nextDouble();
-//                    scanner.nextLine();
                     System.out.print("Enter date (YYYY-MM-DD): ");
-//                    LocalDate date = LocalDate.parse(scanner.nextLine());
                     LocalDate date;
                     try {
                         date = LocalDate.parse(scanner.nextLine());

@@ -1,11 +1,11 @@
+package service;
 import model.Expense;
-import service.ExpenseManager;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseManagerTest {
 
@@ -24,7 +24,7 @@ public class ExpenseManagerTest {
         manager.addExpense(new Expense("Food", 10, LocalDate.now()));
         manager.addExpense(new Expense("Transport", 5, LocalDate.now()));
 
-        Map<String, Double> result = manager.getExpenseByCategory();
+        Map<String, Double> result = manager.getExpenseByCategorySorted();
         assertEquals(10, result.get("Food"));
         assertEquals(5, result.get("Transport"));
     }
