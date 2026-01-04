@@ -20,11 +20,19 @@ public class ExpenseManager {
         return expenses.stream().mapToDouble(Expense::getAmount).sum();
     }
 
-    public Map<String, Double> getExpenseByCategory() {
+    public Map<String, Double> getExpenseByCategorySorted() {
         return expenses.stream()
                 .collect(Collectors.groupingBy(
                         Expense::getCategory,
                         Collectors.summingDouble(Expense::getAmount)
+                ))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
                 ));
     }
 
@@ -40,13 +48,13 @@ public class ExpenseManager {
     }
 
     public String getHighestCategory() {
-        return getExpenseByCategory().entrySet().stream()
+        return getExpenseByCategorySorted().entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse("None");
     }
 
     public String getLowestCategory() {
-        return getExpenseByCategory().entrySet().stream()
+        return getExpenseByCategorySorted().entrySet().stream()
                 .min(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse("None");
     }

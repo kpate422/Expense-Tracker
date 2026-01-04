@@ -23,12 +23,42 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.print("Enter category: ");
-                    String category = scanner.nextLine();
+//                    String category = scanner.nextLine();
+//                    String category = scanner.nextLine().trim().toLowerCase();
+                    String category = scanner.nextLine().trim();
+//                    if(category.isEmpty()) {
+//                        System.out.println("Category cannot be empty.");
+//                        break;
+//                    }
+                    if(category.isEmpty() || category.matches("\\d+")) {
+                        System.out.println("Category must contain letters and cannot be just numbers.");
+                        break;
+                    }
+
+                    category = category.toLowerCase(); // normalize
                     System.out.print("Enter amount: ");
-                    double amount = scanner.nextDouble();
-                    scanner.nextLine();
+                    double amount = 0;
+                    try {
+                        amount = Double.parseDouble(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid amount. Please enter a number.");
+                        break;
+                    }
+                    if(amount <= 0) {
+                        System.out.println("Amount must be greater than 0.");
+                        break;
+                    }
+//                    double amount = scanner.nextDouble();
+//                    scanner.nextLine();
                     System.out.print("Enter date (YYYY-MM-DD): ");
-                    LocalDate date = LocalDate.parse(scanner.nextLine());
+//                    LocalDate date = LocalDate.parse(scanner.nextLine());
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(scanner.nextLine());
+                    } catch(Exception e) {
+                        System.out.println("Invalid date format.");
+                        break;
+                    }
                     manager.addExpense(new Expense(category, amount, date));
                     System.out.println("Expense successfully added!");
                     break;
@@ -36,7 +66,10 @@ public class Main {
                     System.out.println("Total Expense: $" + manager.getTotalExpense());
                     break;
                 case 3:
-                    System.out.println("Expenses by Category: " + manager.getExpenseByCategory());
+                    System.out.println("Expenses by Category (highest to lowest):");
+                    manager.getExpenseByCategorySorted().forEach(
+                            (categories, total) -> System.out.println(categories + ": $" + total)
+                    );
                     break;
                 case 4:
                     System.out.println("Expense Trend (by date):");
